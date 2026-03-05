@@ -89,6 +89,73 @@ const siteTools = [
         handler: async (args) => {
             return await api.post(`/sites/${args.id}/enable`);
         }
+    },
+    {
+        name: 'pressable_convert_site',
+        description: 'Convert a site between staging and live, or to DupliKit/Sandbox.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                target_type: { type: 'string', enum: ['staging', 'live', 'duplikit', 'sandbox'] }
+            },
+            required: ['id', 'target_type']
+        },
+        handler: async (args) => {
+            const endpoint = `/sites/${args.id}/convert-${args.target_type}`;
+            return await api.post(endpoint);
+        }
+    },
+    {
+        name: 'pressable_flush_object_cache',
+        description: 'Flush the object cache for a specific site.',
+        inputSchema: {
+            type: 'object',
+            properties: { id: { type: 'string' } },
+            required: ['id']
+        },
+        handler: async (args) => {
+            return await api.post(`/sites/${args.id}/flush-object-cache`);
+        }
+    },
+    {
+        name: 'pressable_toggle_maintenance_mode',
+        description: 'Toggle maintenance mode for a site.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                enabled: { type: 'boolean' }
+            },
+            required: ['id', 'enabled']
+        },
+        handler: async (args) => {
+            return await api.post(`/sites/${args.id}/maintenance-mode`, { enabled: args.enabled });
+        }
+    },
+    {
+        name: 'pressable_reset_wp_admin_password',
+        description: 'Reset the WordPress admin password for a site.',
+        inputSchema: {
+            type: 'object',
+            properties: { id: { type: 'string' } },
+            required: ['id']
+        },
+        handler: async (args) => {
+            return await api.post(`/sites/${args.id}/reset-password`);
+        }
+    },
+    {
+        name: 'pressable_set_php_filesystem_permissions',
+        description: 'Set PHP file system permissions for a site.',
+        inputSchema: {
+            type: 'object',
+            properties: { id: { type: 'string' } },
+            required: ['id']
+        },
+        handler: async (args) => {
+            return await api.post(`/sites/${args.id}/php-permissions`);
+        }
     }
 ];
 
