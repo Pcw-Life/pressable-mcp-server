@@ -14,6 +14,9 @@ const automationTools = require('./tools/automation');
 const backupTools = require('./tools/backups');
 const usageTools = require('./tools/usage');
 const collaboratorTools = require('./tools/collaborators');
+const bookmarkTools = require('./tools/bookmarks');
+const muPluginTools = require('./tools/mu_plugins');
+const securityTools = require('./tools/security');
 
 const allTools = [
     ...accountTools,
@@ -25,7 +28,10 @@ const allTools = [
     ...automationTools,
     ...backupTools,
     ...usageTools,
-    ...collaboratorTools
+    ...collaboratorTools,
+    ...bookmarkTools,
+    ...muPluginTools,
+    ...securityTools
 ];
 
 const server = new Server(
