@@ -42,6 +42,36 @@ const dnsTools = [
             const { zone_name, ...recordData } = args;
             return await api.post(`/dns/zones/${zone_name}/records`, recordData);
         }
+    },
+    {
+        name: 'pressable_delete_dns_record',
+        description: 'Delete a specific DNS record.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                zone_name: { type: 'string' },
+                record_id: { type: 'string' }
+            },
+            required: ['zone_name', 'record_id']
+        },
+        handler: async (args) => {
+            return await api.delete(`/dns/zones/${args.zone_name}/records/${args.record_id}`);
+        }
+    },
+    {
+        name: 'pressable_generate_email_provider_dns_records',
+        description: 'Generate DNS records for a specific email provider.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                zone_name: { type: 'string' },
+                provider: { type: 'string', enum: ['google-workspace', 'microsoft-365', 'outlook-com', 'zoho-mail'] }
+            },
+            required: ['zone_name', 'provider']
+        },
+        handler: async (args) => {
+            return await api.post(`/dns/zones/${args.zone_name}/email-provider-records`, { provider: args.provider });
+        }
     }
 ];
 
