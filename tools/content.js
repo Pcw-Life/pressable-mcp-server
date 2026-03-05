@@ -39,6 +39,23 @@ const contentTools = [
         handler: async (args) => {
             return await api.get(`/sites/${args.id}/themes`);
         }
+    },
+    {
+        name: 'pressable_list_wp_users',
+        description: 'List WordPress users for a specific site.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                page: { type: 'integer' },
+                per_page: { type: 'integer' }
+            },
+            required: ['id']
+        },
+        handler: async (args) => {
+            const { id, ...params} = args;
+            return await api.get(`/sites/${id}/wordpress/users`, params);
+        }
     }
 ];
 
