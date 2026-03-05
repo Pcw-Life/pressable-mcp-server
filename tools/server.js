@@ -39,6 +39,21 @@ const serverTools = [
         handler: async (args) => {
             return await api.post(`/sites/${args.id}/php-version`, { php_version: args.php_version });
         }
+    },
+    {
+        name: 'pressable_reset_sftp_user_password',
+        description: 'Reset the password for a specific SFTP user.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                site_id: { type: 'string' },
+                username: { type: 'string' }
+            },
+            required: ['site_id', 'username']
+        },
+        handler: async (args) => {
+            return await api.post(`/sites/${args.site_id}/sftp-users/${args.username}/reset-password`);
+        }
     }
 ];
 
