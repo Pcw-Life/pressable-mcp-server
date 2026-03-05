@@ -156,6 +156,62 @@ const siteTools = [
         handler: async (args) => {
             return await api.post(`/sites/${args.id}/php-permissions`);
         }
+    },
+    {
+        name: 'pressable_update_site',
+        description: 'Update settings for a specific site.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                name: { type: 'string' },
+                php_version: { type: 'string' }
+            },
+            required: ['id']
+        },
+        handler: async (args) => {
+            const { id, ...data } = args;
+            return await api.put(`/sites/${id}`, data);
+        }
+    },
+    {
+        name: 'pressable_list_site_domains',
+        description: 'Get a list of domains for a specific site.',
+        inputSchema: {
+            type: 'object',
+            properties: { id: { type: 'string' } },
+            required: ['id']
+        },
+        handler: async (args) => {
+            return await api.get(`/sites/${args.id}/domains`);
+        }
+    },
+    {
+        name: 'pressable_add_site_domain',
+        description: 'Add a domain to a site.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                domain: { type: 'string' }
+            },
+            required: ['id', 'domain']
+        },
+        handler: async (args) => {
+            return await api.post(`/sites/${args.id}/domains`, { domain: args.domain });
+        }
+    },
+    {
+        name: 'pressable_get_phpmyadmin_url',
+        description: 'Get a time-limited phpMyAdmin URL for a site.',
+        inputSchema: {
+            type: 'object',
+            properties: { id: { type: 'string' } },
+            required: ['id']
+        },
+        handler: async (args) => {
+            return await api.get(`/sites/${args.id}/wordpress/phpmyadmin`);
+        }
     }
 ];
 
