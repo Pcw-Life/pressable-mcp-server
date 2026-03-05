@@ -45,6 +45,36 @@ const backupTools = [
             const { id, ...restoreData } = args;
             return await api.post(`/sites/${id}/restores`, restoreData);
         }
+    },
+    {
+        name: 'pressable_list_site_backups_by_type',
+        description: 'Get a list of backups filtered by type (filesystem or database).',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                type: { type: 'string', enum: ['filesystem', 'database'] }
+            },
+            required: ['id', 'type']
+        },
+        handler: async (args) => {
+            return await api.get(`/sites/${args.id}/${args.type}-backups`);
+        }
+    },
+    {
+        name: 'pressable_get_backup_download_url',
+        description: 'Get a download URL for a specific backup.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                site_id: { type: 'string' },
+                backup_id: { type: 'integer' }
+            },
+            required: ['site_id', 'backup_id']
+        },
+        handler: async (args) => {
+            return await api.get(`/sites/${args.site_id}/backups/${args.backup_id}`);
+        }
     }
 ];
 
