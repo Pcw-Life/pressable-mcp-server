@@ -2,6 +2,13 @@
 
 An MCP server for the Pressable API, providing a comprehensive set of tools for management and automation of WordPress sites.
 
+## Features
+
+- **56 Comprehensive Tools**: 100% coverage of the Pressable API v1.
+- **Workflow Templates**: Preset guides for common tasks (Site Launch, Security Audit).
+- **Preset Prompts**: High-signal prompts for AI agents.
+- **Managed Authentication**: Auto-token retrieval and caching.
+
 ## Configuration
 
 1.  Obtain your **Client ID** and **Client Secret** from [Pressable API Applications](https://my.pressable.com/api/applications).
@@ -34,14 +41,26 @@ Add the following to your MCP settings file:
 
 ## Available Tools
 
-The server provides tools across 10 categories:
-- **Account**: Get details, activity logs.
-- **Sites**: List, Create, Get, Update, Delete, Disable, Enable.
-- **DNS**: List zones, Get records, Create records.
-- **Cache**: Status, Purge.
-- **Content**: List plugins, Install plugins, List themes.
-- **Server**: SFTP users, PHP versions, Logs.
-- **Automation**: WP-CLI, Bash commands, Cron jobs.
-- **Backups**: List, Create on-demand, Restore.
-- **Usage**: Metrics, Storage/DB usage.
-- **Collaborators**: List, Add.
+The server is organized into 13 specialized modules:
+
+1.  **Account**: Details, Activity Logs, Account Add-ons.
+2.  **Sites**: Full lifecycle, Conversions, Domains, PHP Permissions, phpMyAdmin access.
+3.  **DNS**: Zone management, Record CRUD, Email provider presets.
+4.  **Edge Cache**: Status, Toggling, Purging, Defensive Mode.
+5.  **Content**: Plugins, Themes, WordPress Users.
+6.  **Server**: SFTP users, PHP versions, Logs, SFTP password resets.
+7.  **Automation**: WP-CLI, Bash, Cron Jobs.
+8.  **Backups**: On-demand snapshots, Restores, Downloads.
+9.  **Usage**: Metrics, Filesystem/Database limits.
+10. **Collaborators**: Site-level access management.
+11. **Bookmarks**: Shared Bash/WP-CLI command presets.
+12. **Must-Use Plugins**: Management of MU-Plugins.
+13. **Security**: Centralized Plugin/Theme vulnerability alerts.
+
+## Workflows & Templates
+
+Check the `templates/` directory for:
+- [Site Launch Checklist](templates/workflows/site-launch.md)
+- [Security Audit Guide](templates/workflows/security-audit.md)
+- [Plugin & Theme Management](templates/workflows/plugin-management.md)
+- [Preset Prompts](templates/prompts/preset-prompts.md)
