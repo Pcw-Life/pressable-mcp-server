@@ -24,6 +24,37 @@ const cacheTools = [
         handler: async (args) => {
             return await api.post(`/sites/${args.id}/edge-cache/purge`);
         }
+    },
+    {
+        name: 'pressable_toggle_edge_cache',
+        description: 'Enable or disable edge caching for a site.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                enabled: { type: 'boolean' }
+            },
+            required: ['id', 'enabled']
+        },
+        handler: async (args) => {
+            const method = args.enabled ? 'enable' : 'disable';
+            return await api.post(`/sites/${args.id}/edge-cache/${method}`);
+        }
+    },
+    {
+        name: 'pressable_toggle_edge_cache_defensive_mode',
+        description: 'Toggle edge cache defensive mode for a site.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                enabled: { type: 'boolean' }
+            },
+            required: ['id', 'enabled']
+        },
+        handler: async (args) => {
+            return await api.post(`/sites/${args.id}/edge-cache/defensive-mode`, { enabled: args.enabled });
+        }
     }
 ];
 
