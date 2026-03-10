@@ -1,8 +1,12 @@
-require('dotenv').config();
 const axios = require('axios');
 
 let accessToken = null;
 let tokenExpiry = 0;
+let cloudflareEnv = null;
+
+function setEnv(env) {
+    cloudflareEnv = env;
+}
 
 async function getAccessToken() {
     const currentTime = Math.floor(Date.now() / 1000);
@@ -12,11 +16,12 @@ async function getAccessToken() {
         return accessToken;
     }
 
-    const clientId = process.env.PRESSABLE_CLIENT_ID;
-    const clientSecret = process.env.PRESSABLE_CLIENT_SECRET;
+    // Try Cloudflare env first, then fall back to process.env (for local)
+    const clientId = (cloudflareEnv && cloudflareEnv.PRESSABLE_CLIENT_ID) || process.env.PRESSABLE_CLIENT_ID;
+    const clientSecret = (cloudflareEnv && cloudflareEnv.PRESSABLE_CLIENT_SECRET) || process.env.PRESSABLE_CLIENT_SECRET;
 
     if (!clientId || !clientSecret) {
-        throw new Error('PRESSABLE_CLIENT_ID and PRESSABLE_CLIENT_SECRET must be set in .env');
+        throw new Error('PRESSABLE_CLIENT_ID and PRESSABLE_CLIENT_SECRET must be set (via Cloudflare Secrets or .env)');
     }
 
     try {
@@ -40,4 +45,4 @@ async function getAccessToken() {
     }
 }
 
-module.exports = { getAccessToken };
+module.exports = { getAccessToken, setEnv };

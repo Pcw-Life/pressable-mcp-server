@@ -1,0 +1,8 @@
+name = "pressable-mcp"
+main = "worker.mjs"
+compatibility_date = "2024-03-04"
+
+[vars]
+# These will be overridden by production secrets
+# PRESSABLE_CLIENT_ID = "your-id"
+# PRESSABLE_CLIENT_SECRET = "your-secret"

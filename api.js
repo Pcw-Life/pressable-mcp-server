@@ -35,5 +35,6 @@ module.exports = {
     get: (path, params) => request('GET', path, null, params),
     post: (path, data) => request('POST', path, data),
     put: (path, data) => request('PUT', path, data),
-    delete: (path) => request('DELETE', path)
+    delete: (path) => request('DELETE', path),
+    setEnv: (env) => setEnv(env)
 };
