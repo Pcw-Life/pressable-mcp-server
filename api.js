@@ -7,17 +7,22 @@ async function request(method, path, data = null, params = null) {
     const token = await getAccessToken();
 
     try {
-        const response = await axios({
+        const config = {
             method,
             url: `${BASE_URL}${path}`,
-            data,
             params,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             }
-        });
+        };
 
+        // Only include body data and Content-Type for non-GET/HEAD requests
+        if (data && !['GET', 'HEAD'].includes(method.toUpperCase())) {
+            config.data = data;
+            config.headers['Content-Type'] = 'application/json';
+        }
+
+        const response = await axios(config);
         return response.data;
     } catch (error) {
         const status = error.response ? error.response.status : 'UNKNOWN';
